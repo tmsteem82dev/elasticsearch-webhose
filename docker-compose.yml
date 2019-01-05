@@ -7,7 +7,7 @@ services:
       - 9200:9200
       - 9300:9300
     environment:
-      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      ES_JAVA_OPTS: "-Xmx512m -Xms512m"
       # disable X-Pack
       # see https://www.elastic.co/guide/en/x-pack/current/xpack-settings.html
       #     https://www.elastic.co/guide/en/x-pack/current/installing-xpack.html#xpack-enabling
@@ -28,6 +28,8 @@ services:
       - ./kibana/config/:/usr/share/kibana/config
     ports:
       - 5601:5601
+    environment:
+      ES_JAVA_OPTS: "-Xmx512m -Xms512m"
     depends_on:
       - elasticsearch
     networks:
