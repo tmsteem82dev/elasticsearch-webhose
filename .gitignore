@@ -1,3 +1,5 @@
 elasticsearch/storage
 elasticsearch/backups
 venv
+.vscode
+*.log
