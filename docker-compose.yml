@@ -1,39 +1,39 @@
-version: "2.0"
+version: "2.2"
 services:
   elasticsearch:
-    build: ./elasticsearch/
-    container_name: my-elastic-cont
+    build: ./elasticsearch
+    container_name: hose-elasticsearch
+    environment:
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata1:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
       - 9300:9300
-    environment:
-      ES_JAVA_OPTS: "-Xmx512m -Xms512m"
-      # disable X-Pack
-      # see https://www.elastic.co/guide/en/x-pack/current/xpack-settings.html
-      #     https://www.elastic.co/guide/en/x-pack/current/installing-xpack.html#xpack-enabling
-      xpack.security.enabled: "false"
-      xpack.monitoring.enabled: "false"
-      xpack.graph.enabled: "false"
-      xpack.watcher.enabled: "false"
-      path.repo: "/backup/esbackup"
-    volumes:
-      - ./elasticsearch/storage:/usr/share/elasticsearch/data
-      - ./elasticsearch/backup/:/backup/esbackup
     networks:
-      - my-esnet
+      - esnet
+
   kibana:
-    build: ./kibana/
-    container_name: my-kibana-cont
-    volumes:
-      - ./kibana/config/:/usr/share/kibana/config
+    build: ./kibana
+    container_name: hose-kibana
+    environment:
+      SERVER_NAME: localhost
+      ELASTICSEARCH_URL: http://elasticsearch:9200/
     ports:
       - 5601:5601
-    environment:
-      ES_JAVA_OPTS: "-Xmx512m -Xms512m"
+    networks:
+      - esnet
     depends_on:
       - elasticsearch
-    networks:
-      - my-esnet
+
+volumes:
+  esdata1:
+    driver: local
+
 networks:
-  my-esnet:
-    driver: bridge
+  esnet:
