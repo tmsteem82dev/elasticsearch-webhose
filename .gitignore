@@ -3,3 +3,5 @@ elasticsearch/backups
 venv
 .vscode
 *.log
+data-ingester/config.py
+*.idea
