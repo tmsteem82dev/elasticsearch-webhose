@@ -5,3 +5,5 @@ venv
 *.log
 data-ingester/config.py
 *.idea
+data-ingester/*.pyc
+data-ingester/__pycache__/*.pyc
