@@ -1,6 +1,7 @@
 from datetime import datetime
 from elasticsearch import Elasticsearch
 import logging
+import hashlib
 
 logger = logging.getLogger("uniLogger")
 logger.setLevel(logging.DEBUG)
@@ -47,39 +48,61 @@ def dummy_data():
     for hit in res["hits"]["hits"]:
         logger.info("%(timestamp)s %(author)s: %(text)s" % hit["_source"])
 
+
 users = [{
     'name': 'harry',
-    'article_likes': ['Planschade Rijksenergieprojecten', 'Maatschappelijk Verantwoord Innoveren', 'Aardgasvrij']
+    'email': 'harrypl@gmail.com',
+    'article_likes': ['', 'Planschade Rijksenergieprojecten', 'Maatschappelijk Verantwoord Innoveren', 'Aardgasvrij']
 
 },
 {
     'name': 'Lenz',
+    'email': 'lenzylitoni@gmail.com',
     'article_likes': ['Planschade Rijksenergieprojecten', 'Banken met groen fonds', 'Aardgasvrij']
 },
 {
     'name': 'Reit',
+    'email': 'rbloom@gmail.com',
     'article_likes': ['Carbon capture', 'Bank falliet', 'Duurzame energie industrie', 'Groene energie opwekken']
 },
 {
     'name': 'Vicky',
+    'email': 'vickster@gmail.com',
     'article_likes': ['Met een waterrad duurzame energie in een handomdrai', 'Aardgasvrij', 'Vrije aardgas hoopjes', 'Waarom aardgasvrij']
 },
 {
     'name': 'Mumsfeld',
+    'email': 'mumsy@gmail.com',
     'article_likes': ['Maatschappelijk Verantwoord Innoveren', 'Blackhole looms', 'From the beyond', 'Spacestation on fire', 'The 2000 things you can do to...']
 },
 {
-    'name': 'Mumsfeld',
+    'name': 'Johnny',
+    'email': 'johhnyt@gmail.com',
     'article_likes': ['Blackhole looms']
 }]
 
+
 def remove_index(index_name):
     logger.info("Deleting index %s" % index_name)
-    es.indices.delete(index=index_name, ignore=[400, 404])
+    res = es.indices.delete(index=index_name, ignore=[400, 404])
+    logger.info("Deletion result: %s" % str(res))
+
 
 def ingest_dummy_users():
     logger.info("Inserting user data")
 
     for user in users:
-        res = es.index(index="users-meta", doc_type="user-metadata", body=user)
+        if "email" not in user:
+            logger.warning("user did not contain email attribute")
+            continue
+
+        if not user["email"]:
+            logger.warning("user email attribute is empty")
+            continue
+
+        email_hash_obj = hashlib.md5(str(user["email"]).encode())
+        email_id_hash = email_hash_obj.hexdigest()
+
+        res = es.index(index="users-meta", doc_type="user-metadata", body=user, id=email_id_hash)
+        logger.info("inserted %s data result: %s" % (user["name"], str(res)))
 
