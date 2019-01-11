@@ -1,0 +1,143 @@
+GET _search
+{
+  "query": {
+    "bool": {
+      "must": {
+        "match": {
+          "article_likes": { "query" :"Aardgasvrij Maatschappelijk",
+          "operator": "and"}
+        }
+      },
+      "must_not": {
+        "term": {"name": "harry"}
+      }
+    }
+  },
+  "aggregations": {
+    "articles_like_aardgas": {
+      "significant_terms": {
+        "field": "article_likes.keyword",
+        "min_doc_count": 1
+      }
+    }
+  }
+}
+
+GET _search
+{
+  "size": 20, 
+  "query": {
+    "bool": {
+      "must": {
+        "match": {
+          "article_likes":"Aardgasvrij"
+        }
+      }
+    }
+  },
+  "aggregations": {
+    "articles_like_aardgas": {
+      "significant_terms": {
+        "field": "article_likes.keyword",
+        "min_doc_count": 1
+      }
+    }
+  }
+}
+
+GET _search
+{
+  "size": 20, 
+  "query": {
+    "bool": {
+      "must": {
+        "match": {
+          "article_likes":"Aardgasvrij Maatschappelijk verantwoord Innoveren Kibana"
+        }
+      }
+    }
+  },
+  "aggregations": {
+    "articles_like_aardgas": {
+      "significant_terms": {
+        "field": "article_likes.keyword",
+        "min_doc_count": 1
+      }
+    }
+  }
+}
+
+GET _search
+{
+  "size": 20,
+  "query": {
+    "bool": {
+      "must": {
+        "multi_match": {
+              "query": "Aardgasvrij Maatschappelijk verantwoord Innoveren Kibana",
+              "fields": ["article_likes^20", "article_views"]
+        }
+      }
+      ,
+      "must_not": {
+        "term": {"name": "harry"}
+      }
+    }
+  },
+  "aggregations": {
+    "articles_liked": {
+      "significant_terms": {
+        "field": "article_likes.keyword",
+        "exclude": ["Aardgasvrij", "Maatschappelijk verantwoord Innoveren"],
+        "min_doc_count": 1,
+        "size": 10
+      }
+    },
+    "articles_viewed": {
+      "significant_terms": {
+        "field": "article_views.keyword",
+        "exclude": ["Aardgasvrij", "Maatschappelijk verantwoord Innoveren"],
+        "min_doc_count": 1,
+        "size": 10
+      }
+    }
+  }
+}
+
+GET _search
+{
+  "size": 20,
+  "query": {
+    "bool": {
+      "must": {
+        "multi_match": {
+              "query": "Aardgasvrij Maatschappelijk Verantwoord Innoveren Kibana",
+              "fields": ["article_likes^10", "article_views"]
+        }
+      }
+      ,
+      "must_not": {
+        "term": {"name": "harry"}
+      }
+    }
+  },
+  "aggregations": {
+    "articles_liked": {
+      "significant_terms": {
+        "field": "article_likes.keyword",
+        "exclude": ["Aardgasvrij", "Maatschappelijk Verantwoord Innoveren", "Kibana","Planschade Rijksenergieprojecten"],
+        "min_doc_count": 1,
+        "size": 10
+      }
+    },
+    "articles_viewed": {
+      "significant_terms": {
+        "field": "article_views.keyword",
+        "exclude": ["Aardgasvrij", "Maatschappelijk Verantwoord Innoveren", "Kibana","Planschade Rijksenergieprojecten"],
+        "min_doc_count": 1,
+        "size": 10
+      }
+    }
+  }
+}
+

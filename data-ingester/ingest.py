@@ -52,33 +52,63 @@ def dummy_data():
 users = [{
     'name': 'harry',
     'email': 'harrypl@gmail.com',
-    'article_likes': ['', 'Planschade Rijksenergieprojecten', 'Maatschappelijk Verantwoord Innoveren', 'Aardgasvrij']
-
+    'article_likes': ['Kibana', 'Planschade Rijksenergieprojecten', 'Maatschappelijk Verantwoord Innoveren', 'Aardgasvrij'],
+    'article_views': ['Kibana', 'Planschade Rijksenergieprojecten', 'Maatschappelijk Verantwoord Innoveren', 'Aardgasvrij']
 },
 {
     'name': 'Lenz',
     'email': 'lenzylitoni@gmail.com',
-    'article_likes': ['Planschade Rijksenergieprojecten', 'Banken met groen fonds', 'Aardgasvrij']
+    'article_likes': ['Planschade Rijksenergieprojecten', 'Banken met groen fonds', 'Aardgasvrij'],
+    'article_views': ['Planschade Rijksenergieprojecten', 'Banken met groen fonds', 'Aardgasvrij', 'Kibana']
 },
 {
     'name': 'Reit',
     'email': 'rbloom@gmail.com',
-    'article_likes': ['Carbon capture', 'Bank falliet', 'Duurzame energie industrie', 'Groene energie opwekken']
+    'article_likes': ['Carbon capture', 'Bank falliet', 'Duurzame energie industrie', 'Groene energie opwekken'],
+    'article_views': ['Carbon capture', 'Bank falliet', 'Duurzame energie industrie', 'Groene energie opwekken']
 },
 {
     'name': 'Vicky',
     'email': 'vickster@gmail.com',
-    'article_likes': ['Met een waterrad duurzame energie in een handomdrai', 'Aardgasvrij', 'Vrije aardgas hoopjes', 'Waarom aardgasvrij']
+    'article_likes': [ 'Aardgasvrij', 'Vrije aardgas hoopjes', 'Waarom aardgasvrij'],
+    'article_views': ['Met een waterrad duurzame energie in een handomdraai', 'Aardgasvrij', 'Vrije aardgas hoopjes', 'Waarom aardgasvrij']
 },
 {
     'name': 'Mumsfeld',
     'email': 'mumsy@gmail.com',
-    'article_likes': ['Maatschappelijk Verantwoord Innoveren', 'Blackhole looms', 'From the beyond', 'Spacestation on fire', 'The 2000 things you can do to...']
+    'article_likes': [],
+    'article_views': ['Maatschappelijk Verantwoord Innoveren', 'Blackhole looms', 'From the beyond', 'Spacestation on fire', 
+    'The 2000 things you can do to...', 'Aardgasvrij']
+},
+{
+    'name': 'yeoman',
+    'email': 'y@gmail.com',
+    'article_likes': ['Kolenvrij'],
+    'article_views': ['Maatschappelijk Verantwoord Innoveren', 'Kolenvrij']
 },
 {
     'name': 'Johnny',
     'email': 'johhnyt@gmail.com',
-    'article_likes': ['Blackhole looms']
+    'article_likes': ['Banken met groen fonds', 'Aardgasvrij'],
+    'article_views': ['Banken met groen fonds', 'Aardgasvrij']
+},
+{
+    'name': 'Lenny',
+    'email': 'lennyb@gmail.com',
+    'article_likes': [],
+    'article_views': ['Maatschappelijk verantwoord Innoveren','Kolenvrij', 'Aardgasvrij']
+},
+{
+    'name': 'Katy',
+    'email': 'katyl@gmail.com',
+    'article_likes': ['Banken met groen fonds', 'Kibana'],
+    'article_views': ['Banken met groen fonds', 'Kibana','Kolenvrij']
+},
+{
+    'name': 'Bernard',
+    'email': 'bobby@gmail.com',
+    'article_likes': ['Economic down falls'],
+    'article_views': ['ViQtor Davis', 'Kibana','Kolenvrij']
 }]
 
 
