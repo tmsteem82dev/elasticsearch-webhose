@@ -23,3 +23,14 @@ if len(output['posts']) == 0:
 
 # Print the site of the first post
 print(output['posts'][0]['thread']['site'])
+
+# doesn't really get the kinds of articles I'm looking for.
+def scrape_japanese_cuisine():
+    query_params = {
+        "q": "site_category:japanese_cuisine language:english site_type:blogs",
+        "sort": "crawled"
+    }
+
+
+if __name__ == "__main__":
+    scrape_japanese_cuisine()
